@@ -26,7 +26,7 @@ const LoginScreen = ({navigation}) =>{
           setNewUser(userCredential.user);
           setEmail('');
           setSenha('');
-          console.error('Deu certo');
+          navigation.navigate("Home")
         })
         .catch(error => {
           console.error('Erro ao fazer login:', error);

@@ -97,6 +97,7 @@ const CadastroScreen = ({navigation}) => {
     setBairro('');
     setEstado('');
     setEstado('');
+    setContato('');
   };
 
   return (

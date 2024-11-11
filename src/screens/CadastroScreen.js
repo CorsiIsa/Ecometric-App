@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert, ScrollView } from "react-native";
+import { View, Text, TextInput, Alert, ScrollView, StyleSheet, Pressable} from "react-native";
 import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import axios from "axios";
 import { initializeApp } from "firebase/app";
@@ -53,7 +53,6 @@ const CadastroScreen = ({navigation}) => {
   
 
       const jsonData = JSON.stringify(data);
-      console.log(jsonData)
 
       const config = {
         baseURL: 'http://10.0.2.2:8080',
@@ -101,79 +100,164 @@ const CadastroScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
-      <View>
-        <Text>Cadastro de Empresa</Text>
+    <ScrollView >
+      <View style={styles.container}>
+        <Text style={styles.title} >CADASTRO EMPRESA</Text>
+        <Text style={styles.text}>Nome da empresa</Text>
         <TextInput
-          placeholder="Nome da empresa"
+          placeholder="nome da empresa"
           value={nomeEmpresa}
           onChangeText={setNomeEmpresa}
+          style={styles.input}
         />
-        
+        <Text style={styles.text} >Número do CNPJ</Text>
         <TextInput
           placeholder="CNPJ"
           value={cnpj}
           onChangeText={setCnpj}
+          style={styles.input}
         />
-        
+        <Text style={styles.text}>Inscrição estadual</Text>
         <TextInput
-          placeholder="Inscrição Estadual"
+          placeholder="inscrição estadual"
           value={inscricaoEstadual}
           onChangeText={setInscricaoEstadual}
+          style={styles.input}
         />
-        
+        <Text style={styles.text}>Razão Social</Text>
         <TextInput
-          placeholder="Razão Social"
+          placeholder="razão social"
           value={razaoSocial}
           onChangeText={setRazaoSocial}
+          style={styles.input}
         />
-        
+        <Text style={styles.text}>Porte</Text>
         <TextInput
-          placeholder="Porte (Grande/Média/Pequena)"
+          placeholder="porte (Grande/Média/Pequena)"
           value={porte}
           onChangeText={setPorte}
+          style={styles.input}
         />
+        <Text style={styles.text}>E-mail</Text>
         <TextInput
-          placeholder="Email"
+          placeholder="email"
           value={email}
           onChangeText={setEmail}
+          style={styles.input}
         />
+        <Text style={styles.text}>Senha</Text>
         <TextInput
-          placeholder="Senha"
+          placeholder="senha"
           value={senha}
           onChangeText={setSenha}
+          style={styles.input}
         />
+        <Text style={styles.text}>CEP</Text>
         <TextInput
           placeholder="cep"
           value={cep}
           onChangeText={setCep}
+          style={styles.input}
         />
+        <Text style={styles.text}>Logradouro</Text>
         <TextInput
-          placeholder="endereço"
+          placeholder="logradouro"
           value={endereco}
           onChangeText={setEndereco}
+          style={styles.input}
         />
+        <Text style={styles.text}>Bairro</Text>
         <TextInput
           placeholder="bairro"
           value={bairro}
           onChangeText={setBairro}
+          style={styles.input}
         />
+        <Text style={styles.text}>Estado</Text>
         <TextInput
           placeholder="estado"
           value={estado}
           onChangeText={setEstado}
+          style={styles.input}
         />
+        <Text style={styles.text}>Contato</Text>
         <TextInput
           placeholder="contato"
           value={contato}
           onChangeText={setContato}
+          style={styles.input}
         />
-        
-        <Button title="Cadastrar" onPress={handleSubmit} />
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.button2,
+            { backgroundColor: pressed ? '#98E4FF' : '#687EFF' } 
+            ]}
+            onPress={handleSubmit}
+        >
+          <Text style={styles.buttonText}>CADASTRAR</Text>
+        </Pressable>
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            { backgroundColor: pressed ? '#98E4FF' : '#687EFF' } 
+            ]}
+            onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.buttonText}>VOLTAR PARA O LOGIN</Text>
+        </Pressable>
       </View>
     </ScrollView>
     
   );
 };
-
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    padding: 20, 
+    backgroundColor: '#071952' 
+  },
+  title: { 
+    fontSize: 25, 
+    fontWeight: 'bold', 
+    textAlign: 'center',
+    marginBottom: 20, 
+    marginTop: 20, 
+    color: '#E4FBFF'
+   },
+  text: { 
+    fontSize: 15, 
+    color: '#98E4FF' 
+  },
+  input: {
+    height: 40,
+    borderColor: '#0D92F4', 
+    borderWidth: 1,
+    marginBottom: 12,
+    padding: 10,
+    borderRadius: 5,
+    color: '#021526', 
+    backgroundColor: '#B7E0FF'
+  },
+  button2: {
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 20
+  },
+  buttonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
 export default CadastroScreen;

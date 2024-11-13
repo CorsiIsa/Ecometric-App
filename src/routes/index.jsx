@@ -1,10 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigation from './stack.routes';
+import { AuthProvider } from '../context.js/AuthContext';
 
 export default function Routes() {
   return (
-    <NavigationContainer>
-      <StackNavigation />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

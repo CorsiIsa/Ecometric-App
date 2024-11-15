@@ -74,7 +74,7 @@ const PerfilScreen = ({ navigation }) => {
                             styles.button2,
                             { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' }
                         ]}
-                        onPress={() => handleSelectedProjeto(item.id)}
+                        onPress={() => navigation.navigate("SobreNos")}
                     >
                         <Text style={styles.buttonText}>SOBRE NÓS</Text>
                         <Text style={styles.text}>Saiba um pouco mais</Text>

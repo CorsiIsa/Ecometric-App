@@ -84,9 +84,10 @@ const HomeScreen = ({ navigation }) => {
                 </View>
                 {monitoramento.map((item, index) => (
                     <View key={index}>
-                        <Text>Melhoria Total:</Text>
+                        <Text>Porcentagem de diferença de consumo do mês anterior ao atual:</Text>
                         <GraficoPizza item={item.porcentagemDiferenca}/>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text>Motivo: {item.descricao}</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                             <Text style={styles.textoStatus}>Status do Monitoramento: {item.stMonitoramento}</Text>
                             <Text style={styles.textoData}>Data de Emissão: {item.dataEmissao}</Text>
                         </View>

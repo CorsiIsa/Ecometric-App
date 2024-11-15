@@ -17,7 +17,7 @@ const GraficoPizza = ({ item }) => {
       legendFontSize: 15,
     },
     {
-      name: 'Restante',
+      name: 'Anterior',
       population: 100 - valorGrafico,
       color: '#687EFF',
       legendFontColor: '#7F7F7F',

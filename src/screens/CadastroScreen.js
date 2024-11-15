@@ -148,6 +148,7 @@ const CadastroScreen = ({navigation}) => {
         />
         <Text style={styles.text}>Senha</Text>
         <TextInput
+          secureTextEntry
           placeholder="senha"
           value={senha}
           onChangeText={setSenha}

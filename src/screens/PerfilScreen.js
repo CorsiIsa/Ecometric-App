@@ -2,7 +2,7 @@ import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "rea
 import { useAuth } from "../context.js/AuthContext"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getAuth, createUserWithEmailAndPassword, signOut} from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -15,22 +15,22 @@ const firebaseConfig = {
     measurementId: "G-Z7HBZ5V4FT"
 };
 
-const PerfilScreen = ({navigation}) => {
-    const { user } = useAuth();
-    const [ empresa, setEmpresa] = useState([]);
+const PerfilScreen = ({ navigation }) => {
+    const { user, setUser } = useAuth();
+    const [empresa, setEmpresa] = useState([]);
     const app = initializeApp(firebaseConfig)
     const auth = getAuth(app)
 
     useEffect(() => {
         fetchEmpresas();
     }, []);
-    
+
     const fetchEmpresas = async () => {
         try {
             const email = user.email
             const response = await axios.get(`http://10.0.2.2:8080/cadastro/${email}`);
             setEmpresa(response.data);
-            
+
         } catch (error) {
             console.error('Erro ao carregar os dados da empresa:', error.message);
         }
@@ -41,8 +41,14 @@ const PerfilScreen = ({navigation}) => {
         return null;
     }
 
-    const handleLogOut = async () => {
-        navigation.navigate("Login")
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                setUser(null)
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -50,39 +56,39 @@ const PerfilScreen = ({navigation}) => {
                 <View>
                     <View>
                         <Text style={styles.title}>Olá, </Text>
-                        <Text style={styles.title2}>{empresa.nomeEmpresa}</Text>  
+                        <Text style={styles.title2}>{empresa.nomeEmpresa}</Text>
                     </View>
 
                     <Pressable
                         style={({ pressed }) => [
-                                styles.button,
-                                { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' } 
+                            styles.button,
+                            { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' }
                         ]}
-                            onPress={() => navigation.navigate("InfoPerfil")}
-                        >
+                        onPress={() => navigation.navigate("InfoPerfil")}
+                    >
                         <Text style={styles.buttonText}>INFORMAÇÕES DO USUÁRIO</Text>
                         <Text style={styles.text}>Gerencie seu perfil</Text>
-                    </Pressable> 
+                    </Pressable>
                     <Pressable
                         style={({ pressed }) => [
-                                styles.button2,
-                                { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' } 
+                            styles.button2,
+                            { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' }
                         ]}
-                            onPress={() => handleSelectedProjeto(item.id)}
-                        >
-                        <Text style={styles.buttonText}>FALE CONOSCO</Text>
+                        onPress={() => handleSelectedProjeto(item.id)}
+                    >
+                        <Text style={styles.buttonText}>SOBRE NÓS</Text>
                         <Text style={styles.text}>Saiba um pouco mais</Text>
-                    </Pressable> 
+                    </Pressable>
 
                     <Pressable
                         style={({ pressed }) => [
-                                styles.button3,
-                                { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' } 
+                            styles.button3,
+                            { backgroundColor: pressed ? '#98E4FF' : '#98E4FF' }
                         ]}
-                            onPress={() => handleLogOut}
-                        >
+                        onPress={handleSignOut}
+                    >
                         <Text style={styles.buttonText2}>SAIR</Text>
-                    </Pressable> 
+                    </Pressable>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -90,22 +96,22 @@ const PerfilScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    container: { 
-      flex: 1, 
-      justifyContent: 'center', 
-      padding: 20, 
-      backgroundColor: '#071952' 
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#071952'
     },
-    title: { 
-        fontSize: 25, 
-        fontWeight: 'bold', 
-        marginTop: 15, 
+    title: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginTop: 15,
         color: '#E4FBFF'
-       },
-    title2: { 
-        fontSize: 25, 
-        fontWeight: 'bold', 
-        marginBottom: 20, 
+    },
+    title2: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginBottom: 20,
         color: '#E4FBFF'
     },
     button: {
@@ -143,6 +149,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-  });
+});
 
 export default PerfilScreen

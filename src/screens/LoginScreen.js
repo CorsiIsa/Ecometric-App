@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable } from "react-native"
+import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Alert } from "react-native"
 import { getAuth, signInWithEmailAndPassword} from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { useState } from "react";
@@ -29,6 +29,7 @@ const LoginScreen = ({navigation}) =>{
           navigation.navigate("Home")
         })
         .catch(error => {
+          Alert.alert('Erro', 'E-mail ou senha invalidos.');
           console.error('Erro ao fazer login:', error);
         });
     };
@@ -47,6 +48,7 @@ const LoginScreen = ({navigation}) =>{
                 />
                 <Text style={styles.text}>Senha</Text>
                 <TextInput
+                  secureTextEntry
                   placeholder="Senha"
                   value={senha}
                   onChangeText={setSenha}

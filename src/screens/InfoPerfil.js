@@ -183,6 +183,7 @@ const InfoPerfil = ({navigation}) => {
                     />
                     <Text style={styles.text3}>Nova Senha</Text>
                     <TextInput
+                    secureTextEntry
                     placeholder="senha"
                     value={senhaAtualizada}
                     onChangeText={setSenha}
